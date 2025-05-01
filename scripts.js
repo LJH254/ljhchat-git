@@ -10,6 +10,3 @@ setInterval(() => {
     const seconds = String(now.getSeconds()).padStart(2, '0');
     h1.textContent = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }, 1000);
-
-const p = document.getElementById("p");
-p.textContent = document.getElementsByTagName("html")[0].innerHTML;
