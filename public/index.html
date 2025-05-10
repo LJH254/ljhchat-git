@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Blank template</title>
-        <!-- Load external CSS styles -->
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <h1 id="h1"></h1>
-        <!-- Load external JavaScript -->
-        <script src="scripts.js"></script>
-    </body>
+<head>
+  <title>Pusher Private Channel Demo</title>
+  <!-- 引入 Pusher CDN -->
+  <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+</head>
+<body>
+  <script>
+    // 初始化 Pusher（替换为你的配置）
+    const pusher = new Pusher('YOUR_APP_KEY', {
+      cluster: 'CLUSTER',  // 如 'ap1'
+      forceTLS: true,      // 强制 HTTPS
+      authEndpoint: '/.netlify/functions/auth' // Netlify 函数路径
+    });
+
+    // 订阅私有频道（示例：private-user-123）
+    const channel = pusher.subscribe('private-user-123');
+
+    // 监听订阅成功事件
+    channel.bind('pusher:subscription_succeeded', () => {
+      console.log('成功订阅私有频道!');
+    });
+
+    // 监听自定义事件
+    channel.bind('message', (data) => {
+      console.log('收到消息:', data);
+    });
+  </script>
+</body>
 </html>
