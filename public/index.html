@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pusher Private Channel Demo</title>
-  <!-- 引入 Pusher CDN -->
-  <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <title>Pusher Private Channel Demo</title>
+    <!-- 引入 Pusher CDN -->
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </head>
 <body>
-  <p id="tip"></p>
-  <script>
-    // 初始化 Pusher（替换为你的配置）
+    <p id="tip"></p>
+    <script>
+        // 初始化 Pusher（替换为你的配置）
     const pusher = new Pusher("56d614897863554e04c1", {
-      cluster: "ap1",  // 如 'ap1'
-      forceTLS: true,      // 强制 HTTPS
-      authEndpoint: '/.netlify/functions/auth' // Netlify 函数路径
+        cluster: "ap1",
+        forceTLS: true,
+        authEndpoint: '/.netlify/functions/auth'
     });
 
     // 订阅私有频道（示例：private-user-123）
     const channel = pusher.subscribe('private-chat-room');
 
-    const p = document.getElementByid("tip");
+    const p = document.getElementById("tip");
 
     // 监听订阅成功事件
     channel.bind('pusher:subscription_succeeded', () => {
-      p.textContent = "uhucfdkuhcdhc";
+        p.textContent = "uhucfdkuhcdhc";
     });
 
     // 监听自定义事件
     channel.bind('client-new-message', (data) => {
-      p.textContent = JSON.stringify(data);
+        p.textContent = JSON.stringify(data);
     });
   </script>
 </body>
