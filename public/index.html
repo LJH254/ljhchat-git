@@ -6,6 +6,7 @@
   <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </head>
 <body>
+  <p id="tip"></p>
   <script>
     // 初始化 Pusher（替换为你的配置）
     const pusher = new Pusher(process.env.PUSHER_APP_KEY, {
@@ -15,21 +16,19 @@
     });
 
     // 订阅私有频道（示例：private-user-123）
-    const channel = pusher.subscribe('private-user-123');
+    const channel = pusher.subscribe('private-chat-room');
+
+    const p = document.getElementByid("tip");
 
     // 监听订阅成功事件
     channel.bind('pusher:subscription_succeeded', () => {
-      console.log('成功订阅私有频道!');
+      p.textContent = "uhucfdkuhcdhc";
     });
 
     // 监听自定义事件
-    channel.bind('message', (data) => {
-      console.log('收到消息:', data);
+    channel.bind('client-new-message', (data) => {
+      p.textContent = JSON.stringify(data);
     });
-
-    window.onerror = function(message, url, line) {
-        alert("Error: " + message + "\nLine: " + line);
-    };
   </script>
 </body>
 </html>
