@@ -8,27 +8,30 @@
 <body>
     <p id="tip"></p>
     <script>
+        Pusher.logToConsole = true;
         // 初始化 Pusher（替换为你的配置）
-    const pusher = new Pusher("56d614897863554e04c1", {
-        cluster: "ap1",
-        forceTLS: true,
-        authEndpoint: '/.netlify/functions/auth'
-    });
+        const pusher = new Pusher("56d614897863554e04c1", {
+            cluster: "ap1",
+            forceTLS: true,
+            authEndpoint: '/.netlify/functions/auth'
+        });
 
-    // 订阅私有频道（示例：private-user-123）
-    const channel = pusher.subscribe('private-chat-room');
+        // 订阅私有频道（示例：private-user-123）
+        const channel = pusher.subscribe('private-chat-room');
 
-    const p = document.getElementById("tip");
+        const p = document.getElementById("tip");
 
-    // 监听订阅成功事件
-    channel.bind('pusher:subscription_succeeded', () => {
-        p.textContent = "uhucfdkuhcdhc";
-    });
+        // 监听订阅成功事件
+        channel.bind('pusher:subscription_succeeded', () => {
+            p.textContent = "订阅成功！";
+            console.log("订阅成功！");
+        });
 
-    // 监听自定义事件
-    channel.bind('client-new-message', (data) => {
-        p.textContent = JSON.stringify(data);
-    });
+        // 监听自定义事件
+        channel.bind('client-new-message', (data) => {
+            p.textContent = JSON.stringify(data);
+            console.log(JSON.stringify(data));
+        });
   </script>
 </body>
 </html>
